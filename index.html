@@ -320,19 +320,38 @@
                 audioElement.volume = volumeSlider.value;
             }
 
+            // function visualizeAudio() {
+            //     function updateMeter() {
+            //         analyser.getByteFrequencyData(dataArray);
+
+            //         audioMeters.forEach((bar, i) => {
+            //             const value = dataArray[i] ? (dataArray[i] / 255) * 100 : 0;
+            //             bar.style.height = `${value}%`;
+            //         });
+
+            //         if (isPlaying) requestAnimationFrame(updateMeter);
+            //     }
+            //     updateMeter();
+            // }
+
             function visualizeAudio() {
-                function updateMeter() {
-                    analyser.getByteFrequencyData(dataArray);
+    function updateMeter() {
+        analyser.getByteFrequencyData(dataArray);
 
-                    audioMeters.forEach((bar, i) => {
-                        const value = dataArray[i] ? (dataArray[i] / 255) * 100 : 0;
-                        bar.style.height = `${value}%`;
-                    });
+        audioMeters.forEach((bar, i) => {
+            const value = dataArray[i] ? (dataArray[i] / 255) * 100 : 0;
+            bar.style.height = `${value}%`;
+        });
 
-                    if (isPlaying) requestAnimationFrame(updateMeter);
-                }
-                updateMeter();
-            }
+        // Force repaint for devices that don't update automatically
+        audioMeterContainer.style.display = 'none';
+        void audioMeterContainer.offsetHeight; // Trigger reflow
+        audioMeterContainer.style.display = 'flex';
+
+        if (isPlaying) requestAnimationFrame(updateMeter);
+    }
+    updateMeter();
+}
 
             function togglePlayPause() {
                 if (!audioElement) initializeAudioPlayer();
