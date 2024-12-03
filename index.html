@@ -339,7 +339,7 @@
         analyser.getByteFrequencyData(dataArray);
 
         audioMeters.forEach((bar, i) => {
-            const value = dataArray[i] ? (dataArray[i] / 255) * 100 : 0;
+            const value = dataArray[i] ? (dataArray[i] / 255) * 60 : 0;
             bar.style.height = `${value}%`;
         });
 
